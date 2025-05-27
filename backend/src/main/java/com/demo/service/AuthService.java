@@ -62,3 +62,4 @@ public class AuthService {
         return jwtUtil.generateToken(user.getEmail());
     }
 }
+
