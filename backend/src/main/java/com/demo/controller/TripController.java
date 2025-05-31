@@ -64,7 +64,7 @@ public class TripController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Trip> updateTrip(@PathVariable Long id, @RequestBody Trip updatedTrip) {
+	public ResponseEntity<Trip> updateTrip(@PathVariable Long id, @RequestBody Trip updatedTrip) throws Exception {
 	    return ResponseEntity.ok(tripService.updateTrip(id, updatedTrip));
 	}
 

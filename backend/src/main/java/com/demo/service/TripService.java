@@ -34,17 +34,26 @@ public class TripService {
 	        .orElseThrow(() -> new RuntimeException("Trip not found"));
 	}
 
-	public Trip updateTrip(Long id, Trip updatedTrip) {
-	    Trip existing = tripRepository.findById(id)
+   public Trip updateTrip(Long id, Trip updatedTrip) throws Exception {
+	    Trip existingTrip = tripRepository.findById(id)
 	        .orElseThrow(() -> new RuntimeException("Trip not found"));
 
-	    existing.setDestination(updatedTrip.getDestination());
-	    existing.setStartDate(updatedTrip.getStartDate());
-	    existing.setEndDate(updatedTrip.getEndDate());
-	    existing.setBudget(updatedTrip.getBudget());
+	    boolean destinationChanged = !existingTrip.getDestination().equalsIgnoreCase(updatedTrip.getDestination());
 
-	    return tripRepository.save(existing);
+	    existingTrip.setDestination(updatedTrip.getDestination());
+	    existingTrip.setStartDate(updatedTrip.getStartDate());
+	    existingTrip.setEndDate(updatedTrip.getEndDate());
+	    existingTrip.setBudget(updatedTrip.getBudget());
+
+	    if (destinationChanged) {
+	        double[] coords = geoService.getCoordinates(updatedTrip.getDestination());
+	        existingTrip.setLat(coords[0]);
+	        existingTrip.setLng(coords[1]);
+	    }
+
+	    return tripRepository.save(existingTrip);
 	}
+
 
 	public Trip saveTrip(Trip trip, String userEmail) throws Exception {
 	    double[] coords = geoService.getCoordinates(trip.getDestination());
