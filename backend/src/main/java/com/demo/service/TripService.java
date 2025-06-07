@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.demo.model.Trip;
+import com.demo.repository.BookingRepository;
 import com.demo.repository.TripRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TripService {
    private final TripRepository tripRepository;
+   private final BookingRepository bookingRepo;
    @Autowired
    private  GeoService geoService;
    
@@ -26,6 +28,7 @@ public class TripService {
    }
    
    public void deleteTrip(Long id) {
+	    bookingRepo.deleteByTripId(id);
 	    tripRepository.deleteById(id);
 	}
 
