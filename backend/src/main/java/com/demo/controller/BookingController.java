@@ -38,6 +38,6 @@ public class BookingController {
         bookingService.deleteBookingsByTripId(tripId);
         return ResponseEntity.ok("Bookings for trip ID " + tripId + " deleted successfully.");
     }
-
+    
 }
 

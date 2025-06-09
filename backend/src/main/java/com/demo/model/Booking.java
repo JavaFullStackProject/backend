@@ -25,7 +25,8 @@ public class Booking {
     private LocalDate startDate;
     private LocalDate endDate;
     private String location; // e.g., city
-
+    private Double estimatedCost;
+    private Double actualCost;
 
     @ManyToOne
     @JoinColumn(name = "trip_id")
