@@ -35,6 +35,11 @@ public class BookingService {
             bookingRepo.deleteAll(bookings);
         }
     }
+    
+    public void deleteBookingById(Long bookingId) {
+        bookingRepo.deleteById(bookingId);
+    }
+
 }
 
 
